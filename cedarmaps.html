@@ -21,7 +21,6 @@
     <div id="map_h9sisi"></div>
 
     <script>
-        // تنظیمات و داده‌های نقشه
         const mapConfig = {
             containerId: 'map_h9sisi',
             accessToken: 'https://api.cedarmaps.com/v1/tiles/cedarmaps.streets.json?access_token={YOUR_ACCESS_TOKEN}',
@@ -38,7 +37,7 @@
             },
             markers: [
                 {
-                    popupContent: "تهران",
+                    popupContent: "Tehran",
                     center: { lat: 35.681009, lng: 51.401744 },
                     iconOpts: {
                         iconUrl: "https://api.cedarmaps.com/v1/markers/marker-default.png",
@@ -49,14 +48,12 @@
             ]
         };
 
-        // تابع اصلی لود نقشه
         function initMap() {
             if (!window.L || !window.L.cedarmaps) {
                 console.error("CedarMaps SDK not loaded.");
                 return;
             }
 
-            // مقداردهی اولیه نقشه
             var map = window.L.cedarmaps.map(
                 mapConfig.containerId, 
                 mapConfig.accessToken, 
@@ -65,7 +62,6 @@
 
             map.setView(mapConfig.options.center, mapConfig.options.zoom);
 
-            // اضافه کردن مارکرها
             if (mapConfig.markers.length > 0) {
                 var markersLeaflet = [];
 
@@ -88,7 +84,6 @@
                     markersLeaflet.push(_marker);
                 });
 
-                // تنظیم محدوده دید روی مارکرها (اگر بیش از یکی باشند)
                 if (markersLeaflet.length > 1) {
                     var group = new window.L.featureGroup(markersLeaflet);
                     map.fitBounds(group.getBounds(), { padding: [30, 30] });
@@ -96,7 +91,6 @@
             }
         }
 
-        // بارگذاری غیرهمگام (Async) اسکریپت
         (function(d, s, url, callback) {
             var script = d.createElement(s);
             script.async = true;
