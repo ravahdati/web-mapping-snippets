@@ -1,6 +1,26 @@
 <?php
 
 /**
+ * Show all available map providers
+ *
+ * @return array List of supported map providers
+ */
+function show_available_maps()
+{
+    return [
+        'google' => 'Google Maps',
+        'cedarmaps' => 'CedarMaps (Iran)',
+        'neshan' => 'Neshan (Iran)',
+        'mapir' => 'Map.ir (Iran)',
+        'parsimap' => 'ParsiMap (Iran)',
+        'mapbox' => 'Mapbox',
+        'osm' => 'OpenStreetMap',
+        'bing' => 'Bing Maps',
+        'yandex' => 'Yandex Maps'
+    ];
+}
+
+/**
  * Display Map based on provider
  * 
  * @param float $latitude
@@ -9,7 +29,6 @@
  */
 function display_map_with_location($latitude, $longitude, $provider = 'google')
 {
-    // کانتینر نقشه
     echo "<div id='map' style='width: 100%; height: 400px;'></div>";
 
     switch ($provider) {
@@ -43,7 +62,7 @@ function display_map_with_location($latitude, $longitude, $provider = 'google')
             </script>";
             break;
 
-        case 'neshan': // اضافه شده: سرویس نشان (بسیار پرکاربرد در ایران)
+        case 'neshan':
             echo "<link href='https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css' rel='stylesheet' type='text/css'>";
             echo "<script src='https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js' type='text/javascript'></script>";
             echo "<script>
@@ -67,7 +86,7 @@ function display_map_with_location($latitude, $longitude, $provider = 'google')
                 var map = new mapboxgl.Map({
                   container: 'map',
                   style: 'https://map.ir/vector/styles/main/mapir-xyz-light-style.json',
-                  center: [{$longitude}, {$latitude}], // توجه: ترتیب طول و عرض در مپ باکس برعکس است
+                  center: [{$longitude}, {$latitude}],
                   zoom: 15
                 });
                 new mapboxgl.Marker().setLngLat([{$longitude}, {$latitude}]).addTo(map);
@@ -113,7 +132,7 @@ function display_map_with_location($latitude, $longitude, $provider = 'google')
             </script>";
             break;
 
-        case 'bing': // اضافه شده: Bing Maps
+        case 'bing':
             echo "<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=YOUR_BING_MAPS_KEY' async defer></script>";
             echo "<script>
                 function GetMap() {
@@ -129,8 +148,8 @@ function display_map_with_location($latitude, $longitude, $provider = 'google')
                 }
             </script>";
             break;
-            
-        case 'yandex': // اضافه شده: Yandex Maps
+
+        case 'yandex':
             echo "<script src='https://api-maps.yandex.ru/2.1/?apikey=YOUR_YANDEX_API_KEY&lang=en_US' type='text/javascript'></script>";
             echo "<script>
                 ymaps.ready(init);
